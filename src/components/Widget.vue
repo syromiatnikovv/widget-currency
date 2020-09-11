@@ -18,6 +18,10 @@ export default {
     WidgetHeader,
     WidgetBody,
     WidgetFooter
+  },
+
+  mounted() {
+    this.$store.dispatch('currencies/getCurrencies')
   }
 }
 </script>

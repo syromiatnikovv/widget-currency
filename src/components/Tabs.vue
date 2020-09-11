@@ -4,10 +4,15 @@
     color="#2b2d33"
     hide-slider
     v-model="tabs"
-    :show-arrows="$vuetify.breakpoint.smAndDown"
+    :show-arrows="true"
   >
-    <v-tab v-for="i in 10" :key="i" :href="`#tab-${i}`">
-      EUR
+    <v-tab
+      v-for="currency of currencies"
+      :key="currency"
+      :href="`#tab-${currency}`"
+      @change="getRates(currency)"
+    >
+      {{ currency }}
     </v-tab>
   </v-tabs>
 </template>
@@ -22,6 +27,16 @@ export default {
       set(value) {
         this.$store.commit('app/setTabs', value)
       }
+    },
+
+    currencies() {
+      return this.$store.getters['currencies/currencies']
+    }
+  },
+
+  methods: {
+    getRates(currency) {
+      this.$store.dispatch('currencies/getRates', currency)
     }
   }
 }
