@@ -7,15 +7,26 @@
       type="number"
     ></v-text-field>
 
-    <span class="amount__currency text--muted">EUR</span>
+    <span class="amount__currency text--muted">{{ base }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    amount: 1
-  })
+  computed: {
+    amount: {
+      get() {
+        return this.$store.getters['app/amount']
+      },
+      set(value) {
+        this.$store.commit('app/setAmount', value)
+      }
+    },
+
+    base() {
+      return this.$store.getters['currencies/base']
+    }
+  }
 }
 </script>
 

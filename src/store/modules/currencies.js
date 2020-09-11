@@ -5,12 +5,14 @@ export default {
 
   state: {
     currencies: null,
-    rates: null
+    rates: null,
+    base: null
   },
 
   getters: {
     currencies: state => state.currencies,
-    rates: state => state.rates
+    rates: state => state.rates,
+    base: state => state.base
   },
 
   mutations: {
@@ -20,6 +22,10 @@ export default {
 
     setRates(state, rates) {
       state.rates = rates
+    },
+
+    setBase(state, currency) {
+      state.base = currency
     }
   },
 
@@ -44,6 +50,7 @@ export default {
         const rates = data.rates
 
         commit('setRates', rates)
+        commit('setBase', currency)
       } catch (error) {
         throw new Error('Ошибка получения ставок')
       }

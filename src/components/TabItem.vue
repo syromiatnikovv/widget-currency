@@ -10,10 +10,10 @@
       >
         <v-card class="card-currency">
           <div class="card-currency__amount">
-            1 <span class="text--muted">{{ currency }} =</span>
+            {{ amount }} <span class="text--muted">{{ currency }} =</span>
           </div>
           <div class="card-currency__calculated">
-            {{ rateModify(value) }}<span> {{ key }}</span>
+            {{ rateModify(amount * value) }}<span> {{ key }}</span>
           </div>
         </v-card>
       </v-col>
@@ -30,6 +30,10 @@ export default {
   computed: {
     rates() {
       return this.$store.getters['currencies/rates']
+    },
+
+    amount() {
+      return this.$store.getters['app/amount']
     }
   },
 
