@@ -1,12 +1,11 @@
 <template>
-  <v-tab-item :value="`tab-${currency}`">
+  <v-tab-item :value="`tab-${currency}`" v-if="ratesDiv">
     <v-row>
       <v-col
         cols="12"
         sm="6"
-        v-for="(value, key) of rates"
+        v-for="(value, key) of ratesDiv[pageRates]"
         :key="key"
-        v-show="currency !== key"
       >
         <v-card class="card-currency">
           <div class="card-currency__amount">
@@ -28,12 +27,16 @@ export default {
   },
 
   computed: {
-    rates() {
-      return this.$store.getters['currencies/rates']
-    },
-
     amount() {
       return this.$store.getters['app/amount']
+    },
+
+    pageRates() {
+      return this.$store.getters['currencies/pageRates']
+    },
+
+    ratesDiv() {
+      return this.$store.getters['currencies/ratesDiv']
     }
   },
 

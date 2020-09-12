@@ -1,16 +1,50 @@
 <template>
-  <footer class="widget__footer">
-    <v-btn color="white" disabled class="btn-prev">
+  <footer class="widget__footer" v-if="ratesDiv">
+    <v-btn
+      color="white"
+      :disabled="pageRates === 0"
+      class="btn-prev"
+      @click="prevPage"
+    >
       <v-icon left>mdi-chevron-left</v-icon>
       Назад
     </v-btn>
 
-    <v-btn color="white" class="btn-next">
+    <v-btn
+      color="white"
+      :disabled="pageRates === ratesDiv.length - 1"
+      class="btn-next"
+      @click="nextPage"
+    >
       Далее
       <v-icon right>mdi-chevron-right</v-icon>
     </v-btn>
   </footer>
 </template>
+
+<script>
+export default {
+  computed: {
+    pageRates() {
+      return this.$store.getters['currencies/pageRates']
+    },
+
+    ratesDiv() {
+      return this.$store.getters['currencies/ratesDiv']
+    }
+  },
+
+  methods: {
+    nextPage() {
+      this.$store.commit('currencies/nextPageRates')
+    },
+
+    prevPage() {
+      this.$store.commit('currencies/prevPageRates')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .widget__footer {
